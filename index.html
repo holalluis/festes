@@ -4,104 +4,59 @@
   <script>
     var Festes=[
       {
-        data:"2018-07-31",
-        lloc:"Sant Feliu de Guíxols",
-        grup:"Diversiones",
-      },
-      {
-        data:"2018-08-03",
-        lloc:"Caldes de Malavella",
-        grup:"Auxili",
-      },
-      {
-        data:"2018-08-04",
-        lloc:"Caldes de Malavella",
-        grup:"Smoking Souls",
-      },
-      {
-        data:"2018-08-05",
-        lloc:"Argentona",
-        grup:"Iseo & Dodo Sound + Roba Estesa",
-      },
-      {
-        data:"2018-08-06",
-        lloc:"Argentona",
-        grup:"Miquel del Roig + Catarres + Pupiles",
-      },
-      {
-        data:"2018-08-10",
-        lloc:"Bescanó",
-        grup:"Miquel del Roig + Ítaca Band",
-      },
-      {
-        data:"2018-08-11",
-        lloc:"Bescanó",
-        grup:"Ebri Knight + Diversiones",
-      },
-      {
-        data:"2018-08-12",
-        lloc:"Maçanet de la Selva",
-        grup:"Maribel + Roba Estesa",
-      },
-      {
-        data:"2018-08-14",
-        lloc:"Amer",
-        grup:"Loca Histeria + Animal DJ",
-      },
-      {
-        data:"2018-08-15",
-        lloc:"Amer",
-        grup:"Maribel",
-      },
-      {
-        data:"2018-08-24 19:00",
+        data:"2019-08-23 19:00",
         lloc:"Calonge",
         grup:"Diver Beach",
       },
       {
-        data:"2018-08-24",
-        lloc:"Sant Hilari Sacalm",
-        grup:"Zoo",
+        data:"2019-08-24",
+        lloc:"Les Planes d'Hostoles",
+        grup:"Judit Nedderman",
       },
       {
-        data:"2018-08-25",
-        lloc:"Sant Hilari Sacalm",
-        grup:"Maribel",
-      },
-      {
-        data:"2018-08-30",
+        data:"2019-08-29",
         lloc:"Figueres",
-        grup:"La Raiz + Sr Oca + Lil Dami",
+        grup:"Acústica - lildami, suu, la pegatina",
       },
       {
-        data:"2018-08-31",
+        data:"2019-08-30",
         lloc:"Figueres",
-        grup:"Catarres + Pupiles",
+        grup:"Acústica - zoo, oques grasses, balkan paradise orchestra",
       },
       {
-        data:"2018-08-31",
-        lloc:"Vidreres",
-        grup:"Zoo",
+        data:"2019-08-30",
+        lloc:"Anglès",
+        grup:"Peyu",
       },
       {
-        data:"2018-09-01",
+        data:"2019-08-31",
         lloc:"Figueres",
-        grup:"Dr Prats",
+        grup:"Acústica - iseo dodo sound, buhos",
       },
       {
-        data:"2018-09-01",
-        lloc:"Sarrià de Ter",
-        grup:"Zoo",
+        data:"2019-09-01",
+        lloc:"Figueres",
+        grup:"Acústica - diversiones",
+      },
+      {
+        data:"2019-09-06",
+        lloc:"Olot",
+        grup:"FdT - txarango",
+      },
+      {
+        data:"2019-09-07",
+        lloc:"Olot",
+        grup:"FdT - marvin i prezioso (90s)",
+      },
+      {
+        data:"2019-09-08",
+        lloc:"Olot",
+        grup:"FdT - maribel",
       },
     ];
   </script>
 </head><body onload="renderNormal()">
-<h2>
-  Festes Estiu 2k18 
-  <span style=color:#aaa>
-  #laclica
-  </span>
-</h2>
+<h2>Festes Estiu 2k19 <span style=color:#aaa> #laclica </span></h2>
 
 <!--botons vista-->
 <div style=margin-bottom:1px>
@@ -110,15 +65,15 @@
   <button onclick=renderExpand()>expandida</button>
 </div>
 
-<!--festes--><table id=festes border=1>
+<!--taula festes--><table id=festes border=1>
   <tbody header></tbody>
   <tbody festes></tbody>
 </table>
 
 <script>
   //render table
-  var th=document.querySelector('#festes tbody[header]');
-  var tf=document.querySelector('#festes tbody[festes]');
+  let th=document.querySelector('#festes tbody[header]');
+  let tf=document.querySelector('#festes tbody[festes]');
 
   function renderNormal(){
     th.innerHTML="<tr><th>Data<th>Lloc <th>Grups";
@@ -135,22 +90,19 @@
   function renderExpand(){
     th.innerHTML="<tr><th>Data<th>Lloc<th>Grups";
     tf.innerHTML="";
-
     //omple array de Dies
     var Dies=[];
     var avui=new Date();
     while(true){
-      var next=new Date(avui.getTime()+86400000*Dies.length);//suma 1 dia
+      let next=new Date(avui.getTime()+86400000*Dies.length);//suma 1 dia
       Dies.push(next);
       if(Dies.length>33)break;
     }
-
     //render dies
     Dies.forEach(dia=>{
-      var newRow=tf.insertRow(-1);
+      let newRow=tf.insertRow(-1);
       newRow.insertCell(-1).innerHTML=dia.toUTCString().substring(0,11);
-
-      var festes=buscaFestesPerDia(dia);
+      let festes=buscaFestesPerDia(dia);
       newRow.insertCell(-1).innerHTML=festes.map(f=>f.lloc);
       newRow.insertCell(-1).innerHTML=festes.map(f=>f.grup);
     });
@@ -158,15 +110,14 @@
 
   //busca festes per data
   function buscaFestesPerDia(data){
-    var dia=data.getDate();
-    var mes=data.getMonth();
-    var rv=[];
+    let dia=data.getDate();
+    let mes=data.getMonth();
+    let rv=[];
     Festes.forEach(festa=>{
-      var d=new Date(festa.data);
+      let d=new Date(festa.data);
       if(d.getDate()==dia && d.getMonth()==mes){
         rv.push(festa);
       }
-      
     });
     return rv;
   }
